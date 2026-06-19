@@ -1,0 +1,9 @@
+footer{
+    display: flex;
+    height: 8rem;
+    p, a { text-decoration: none; color: white;}
+    justify-content: center;
+    margin-top: auto;
+    background-color: rgb(58, 58, 58);
+    flex-direction: column;
+}

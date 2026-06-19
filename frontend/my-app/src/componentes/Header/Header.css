@@ -1,0 +1,18 @@
+.header{
+    background-color: rgb(58, 58, 58);
+    display: flex;
+    justify-content: space-between;
+    height: 5rem;
+    ul,nav{height: 100%;}
+    a,ul{text-decoration: none; color: white;}
+    a:hover{text-decoration: underline;}
+    li{list-style: none;}
+    li:hover{background-color: rgb(72, 72, 72);}
+    ul{
+        display: flex;
+        font-size: 1.2rem;
+        padding: 0 1rem;
+        align-items: center;
+        gap: 1rem;
+    }
+}
