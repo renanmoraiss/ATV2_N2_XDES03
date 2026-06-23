@@ -30,7 +30,8 @@ export async function createFilmes(filme: CreateFilmeDTO): Promise<void>
         body: JSON.stringify(filme),
     });
     if (!res.ok) {
-        throw new Error("Erro");
+        const erro = await res.json();
+        throw new Error(erro.message);
     }
 }
 
@@ -45,7 +46,8 @@ export async function updateFilme(id: number, filme: UpdateFilmeDTO): Promise<vo
         body: JSON.stringify(filme),
     });
     if (!res.ok) {
-        throw new Error("Erro");
+        const erro = await res.json();
+        throw new Error(erro.message);
     }
 }
 
