@@ -4,12 +4,16 @@ export class FilmeService {
 
     async create(dados: { titulo: string; nota: number; imagem: string; }) 
     {
-        await prisma.filme.create({
-            data: dados, 
-        });
+        if (dados.nota >= 1 && dados.nota <= 5) {
+            await prisma.filme.create({
+                data: dados,
+            });
+        } else {
+            throw new Error("Nota fora do intervalo");
+        }
     }
 
-     async delete(id: number){
+    async delete(id: number){
         await prisma.filme.delete({
             where: {
                 id
@@ -30,11 +34,15 @@ export class FilmeService {
     }
 
     async update(id: number, dados: { titulo: string; nota: number; imagem: string; }) {
-        await prisma.filme.update({
-            where: {
-                id
-            },
-            data: dados,
-        });
+        if (dados.nota >= 1 && dados.nota <= 5) {
+            await prisma.filme.update({
+                where: {
+                    id
+                },
+                data: dados,
+            });
+        } else {
+            throw new Error("Nota fora do intervalo");
+        }
     }
 }
