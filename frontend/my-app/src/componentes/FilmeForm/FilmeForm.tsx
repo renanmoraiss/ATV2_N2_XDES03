@@ -28,7 +28,8 @@ export default function FilmeForm({ filme }: Props) {
    
     async function handleSubmit( e: React.SyntheticEvent) {
         e.preventDefault();
-        const payload = {
+        try {
+            const payload = {
             titulo,
             imagem,
             nota,
@@ -40,6 +41,9 @@ export default function FilmeForm({ filme }: Props) {
         }
         router.push("/");
         router.refresh();
+        } catch (error: any) {
+            alert(error.message);
+        }
     }
     return (
         <form onSubmit={handleSubmit} className="filme-form">

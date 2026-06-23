@@ -5,10 +5,15 @@ const filmeService = new FilmeService();
 
 export class FilmeController {
     async create(req: Request, res: Response) {
-        const dados = req.body;
-        await filmeService.create(dados);
-
-        res.status(200).send();
+        try {
+            const dados = req.body;
+            await filmeService.create(dados);
+            return res.status(200).send();
+        } catch (error: any) {
+            return res.status(400).json({
+                message: error.message
+            });
+        }
     }
 
     async delete(req: Request, res: Response) {
@@ -29,9 +34,15 @@ export class FilmeController {
     }
 
     async update(req: Request, res: Response) {
-        const id = Number(req.params.id);
-        const dados = req.body;
-        await filmeService.update(id, dados);
-        res.status(200).send();
+        try {
+            const id = Number(req.params.id);
+            const dados = req.body;
+            await filmeService.update(id, dados);
+            return res.status(200).send();
+        } catch (error: any) {
+            return res.status(400).json({
+                message: error.message
+            });
+        }
     }
 }
