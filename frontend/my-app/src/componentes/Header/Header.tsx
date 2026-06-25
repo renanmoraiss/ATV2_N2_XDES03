@@ -1,17 +1,43 @@
 import "@/componentes/Header/Header.css";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import LogoutButton from "../LogoutButton/LogoutButton";
 
 export default async function Header(){
+
+    //Verificar se está logado
+    const cookieStore = await cookies();
+
+    const token = cookieStore.get('token');
+
     return(
         <header className='header'>
                 <nav>
                     <ul>
-                        <li><a href="https://www.cinea.com.br/" target='_blank'>Sobre</a></li>| 
-                        <li><a href="https://unifei.edu.br/" target='_blank'>Página Oficial</a></li>
+                        <li><Link href="/">Home</Link></li>
                     </ul>
                 </nav>
                 <div>
                     <ul>
-                        <li><a href="https://sigaa.unifei.edu.br/sigaa/verTelaLogin.do" target='_blank'>Login</a></li> 
+                        {
+                        !token && (
+                            <>
+                            <li>
+                                <Link href="/login">Login</Link>
+                            </li>|
+                            <li>
+                                <Link href="/create">Criar Conta</Link> 
+                            </li>
+                            </>
+                        )
+                        }
+                        {
+                        token && (
+                            <li>
+                                <LogoutButton />
+                            </li>
+                        )
+                        }
                     </ul>
                 </div>
         </header>
