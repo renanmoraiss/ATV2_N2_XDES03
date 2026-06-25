@@ -2,12 +2,17 @@ import {Filme, CreateFilmeDTO, UpdateFilmeDTO} from "@/tipos/filme";
 
 const URL_API = process.env.NEXT_PUBLIC_API_URL;
 
-export async function getFilmes(): Promise<Filme[]> 
+export async function getFilmes(cookieHeader?: string): Promise<Filme[]> 
 {
-    const nextUrl = process.env.NEXT_PUBLIC_API_URL; 
-
     try {
-        const res = await fetch(`${nextUrl}/filmes`);
+        const res = await fetch(`${URL_API}/filmes`,{
+            headers: {
+                Cookie: cookieHeader ?? "",
+            }
+        });
+        if (!res.ok) {
+            throw new Error("Não autenticado");
+        }
         const data = await res.json();
         return data;
     } catch (error) {
@@ -24,6 +29,7 @@ export async function createFilmes(filme: CreateFilmeDTO): Promise<void>
 {
     const res = await fetch(`${URL_API}/filmes`,{
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
@@ -43,6 +49,7 @@ export async function updateFilme(id: number, filme: UpdateFilmeDTO): Promise<vo
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(filme),
     });
     if (!res.ok) {
@@ -55,5 +62,6 @@ export async function deleteFilme(id: number): Promise<void>
 {
     await fetch(`${URL_API}/filmes/${id}`,{
         method: "DELETE",
+        credentials: "include",
     });
 }
